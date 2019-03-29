@@ -1,3 +1,7 @@
+# Booking App
+
+Simple C# app to make reservations.
+
 # Setup
 
 ## Steps to setup a dotnet project with asp.net core and a sqlite database
