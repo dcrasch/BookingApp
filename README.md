@@ -28,6 +28,13 @@ dotnet add package Microsoft.EntityFrameworkCore.Sqlite --version 2.1.8
 dotnet add package Microsoft.EntityFrameworkCore.Design --version 2.1.8
 ```
 
+# Running
+
+```{shell}
+export ASPNETCORE_ENVIRONMENT=Development dotnet run
+```
+
+
 # Links
 
 ## More documention
@@ -35,7 +42,7 @@ dotnet add package Microsoft.EntityFrameworkCore.Design --version 2.1.8
 * [ASP.NET Core Setup database](https://docs.microsoft.com/en-us/ef/core/get-started/aspnetcore/new-db?tabs=netcore-cli)
 * [ASP.NET Core 2.1 Web Application using PostgreSQL with Entity Framework](https://github.com/jasonsturges/postgresql-dotnet-core)
 * [Unit Testing in ASP.NET Core Web API](https://code-maze.com/unit-testing-aspnetcore-web-api/)
-
+* [Building Single Page Applications on ASP.NET Core with JavaScriptServices](https://devblogs.microsoft.com/aspnet/building-single-page-applications-on-asp-net-core-with-javascriptservices/)
 # License
 
 Copyright (c) 2019 David Rasch.
