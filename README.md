@@ -38,5 +38,6 @@ dotnet add package Microsoft.EntityFrameworkCore.Design --version 2.1.8
 
 # License
 
-Copyright (c) 2019 David Rasch 
-This program is released under license GPL v3 or later
+Copyright (c) 2019 David Rasch.
+
+This program is released under license GPL v3 or later.
