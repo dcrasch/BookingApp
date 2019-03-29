@@ -23,8 +23,47 @@ namespace BookingApp.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<Booking>> Get()
         {
-            var items = _bookingRepository.All;
-            return Ok(items);
+            var bookings = _bookingRepository.GetAll;
+            return Ok(bookings);
         }
+
+        [HttpGet("{id}")]
+        public ActionResult<Booking> Get(Guid id)
+        {
+            var booking = _bookingRepository.Get(id);
+
+            if (booking == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(booking);
+}
+
+    [HttpPost]
+    public ActionResult Post([FromBody] Booking value)
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
+        var booking = _bookingRepository.Add(value);
+        return CreatedAtAction("Get", new { id = booking.ID }, booking);
+    }
+
+    [HttpDelete("{id}")]
+    public ActionResult Remove(Guid id)
+    {
+        var booking = _bookingRepository.Get(id);
+
+        if (booking == null)
+        {
+            return NotFound();
+        }
+
+        _bookingRepository.Remove(id);
+        return Ok();
+    }
     }
 }

@@ -16,37 +16,39 @@ namespace BookingApp.Services
             InitializeData();
         }
 
-        public IEnumerable<Booking> All
-        {
-            get { return _bookingList; }
-        }
-
         public bool DoesItemExist(Guid id)
         {
             return _bookingList.Any(item => item.ID == id);
         }
 
-        public Booking Find(Guid id)
+        public Booking Get(Guid id)
         {
             return _bookingList.FirstOrDefault(item => item.ID == id);
         }
 
-        public void Insert(Booking item)
+        public IEnumerable<Booking> GetAll
+        {
+            get { return _bookingList; }
+        }
+
+
+        public Booking Add(Booking item)
         {
             _bookingList.Add(item);
+            return item;
         }
 
         public void Update(Booking item)
         {
-            var todoItem = this.Find(item.ID);
+            var todoItem = this.Get(item.ID);
             var index = _bookingList.IndexOf(todoItem);
             _bookingList.RemoveAt(index);
             _bookingList.Insert(index, item);
         }
 
-        public void Delete(Guid id)
+        public void Remove(Guid id)
         {
-            _bookingList.Remove(this.Find(id));
+            _bookingList.Remove(this.Get(id));
         }
 
         private void InitializeData()

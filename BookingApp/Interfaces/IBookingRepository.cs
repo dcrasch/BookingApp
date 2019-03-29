@@ -8,10 +8,10 @@ namespace BookingApp.Interfaces
     public interface IBookingRepository
     {
         bool DoesItemExist(Guid id);
-        IEnumerable<Booking> All { get; }
-        Booking Find(Guid id);
-        void Insert(Booking item);
+        IEnumerable<Booking> GetAll { get; }
+        Booking Get(Guid id);
+        Booking Add(Booking item);
         void Update(Booking item);
-        void Delete(Guid id);
+        void Remove(Guid id);
     }
 }
