@@ -5,7 +5,7 @@ using System;
 
 namespace BookingApp.Interfaces
 {
-    public interface IBookingRepository
+    public interface IBookingService
     {
         bool DoesItemExist(Guid id);
         IEnumerable<Booking> GetAll { get; }

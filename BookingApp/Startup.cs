@@ -30,7 +30,7 @@ namespace BookingApp
             {
                 configuration.RootPath = "ClientApp/build";
             });
-                services.AddSingleton<IBookingRepository,SampleBookingRepository>();
+                services.AddSingleton<IBookingService,SampleBookingService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

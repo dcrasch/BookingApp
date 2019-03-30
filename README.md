@@ -42,6 +42,7 @@ export ASPNETCORE_ENVIRONMENT=Development dotnet run
 * [ASP.NET Core Setup database](https://docs.microsoft.com/en-us/ef/core/get-started/aspnetcore/new-db?tabs=netcore-cli)
 * [ASP.NET Core 2.1 Web Application using PostgreSQL with Entity Framework](https://github.com/jasonsturges/postgresql-dotnet-core)
 * [Unit Testing in ASP.NET Core Web API](https://code-maze.com/unit-testing-aspnetcore-web-api/)
+* [Test controller logic in ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/mvc/controllers/testing?view=aspnetcore-2.2)
 * [Building Single Page Applications on ASP.NET Core with JavaScriptServices](https://devblogs.microsoft.com/aspnet/building-single-page-applications-on-asp-net-core-with-javascriptservices/)
 # License
 

@@ -14,23 +14,23 @@ namespace BookingApp.Controllers
     public class BookingController : Controller
     {
 
-        private readonly IBookingRepository _bookingRepository;
-        public BookingController(IBookingRepository bookingRepository)
+        private readonly IBookingService _bookingService;
+        public BookingController(IBookingService bookingService)
         {
-            _bookingRepository = bookingRepository;
+            _bookingService = bookingService;
         }
 
         [HttpGet]
         public ActionResult<IEnumerable<Booking>> Get()
         {
-            var bookings = _bookingRepository.GetAll;
+            var bookings = _bookingService.GetAll;
             return Ok(bookings);
         }
 
         [HttpGet("{id}")]
         public ActionResult<Booking> Get(Guid id)
         {
-            var booking = _bookingRepository.Get(id);
+            var booking = _bookingService.Get(id);
 
             if (booking == null)
             {
@@ -48,21 +48,21 @@ namespace BookingApp.Controllers
             return BadRequest(ModelState);
         }
 
-        var booking = _bookingRepository.Add(value);
+        var booking = _bookingService.Add(value);
         return CreatedAtAction("Get", new { id = booking.ID }, booking);
     }
 
     [HttpDelete("{id}")]
     public ActionResult Remove(Guid id)
     {
-        var booking = _bookingRepository.Get(id);
+        var booking = _bookingService.Get(id);
 
         if (booking == null)
         {
             return NotFound();
         }
 
-        _bookingRepository.Remove(id);
+        _bookingService.Remove(id);
         return Ok();
     }
     }

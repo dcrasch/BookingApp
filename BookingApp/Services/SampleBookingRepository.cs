@@ -7,11 +7,11 @@ using BookingApp.Interfaces;
 
 namespace BookingApp.Services
 {
-    public class SampleBookingRepository : IBookingRepository
+    public class SampleBookingService : IBookingService
     {
         private List<Booking> _bookingList;
 
-        public SampleBookingRepository()
+        public SampleBookingService()
         {
             InitializeData();
         }
