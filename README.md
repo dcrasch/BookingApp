@@ -12,7 +12,7 @@ cd <PROJECTNAME>
 dotnet new sln
 mkdir <APPNAME>
 cd <APPNAME>
-dotnet new reactredux   ##asp.net core 2.1.1 react
+dotnet new reactredux
 cd ..
 dotnet sln add <APPNAME>/<APPNAME>.csproj
 mkdir <APPNAME>.Tests
@@ -22,10 +22,10 @@ cd ..
 dotnet sln add <APPNAME>.Tests/<APPNAME>.Tests.csproj
 cd <APPNAME>.Tests
 dotnet add reference ../<APPNAME>/<APPNAME>.csproj
-dotnet add package Microsoft.AspNetCore.App --version 2.1.2 ## same as web project
+dotnet add package Microsoft.AspNetCore.App  ## same as web project
 cd ../<APPNAME>
-dotnet add package Microsoft.EntityFrameworkCore.Sqlite --version 2.1.8
-dotnet add package Microsoft.EntityFrameworkCore.Design --version 2.1.8
+dotnet add package Microsoft.EntityFrameworkCore.Sqlite --version 2.2.0
+dotnet add package Microsoft.EntityFrameworkCore.Design --version 2.2.0
 ```
 
 # Running
@@ -34,6 +34,8 @@ dotnet add package Microsoft.EntityFrameworkCore.Design --version 2.1.8
 export ASPNETCORE_ENVIRONMENT=Development dotnet run
 ```
 
+# Upgrade dotnet version
+https://docs.microsoft.com/en-us/aspnet/core/migration/21-to-22?view=aspnetcore-2.2&tabs=visual-studio-mac
 
 # Links
 
