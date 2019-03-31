@@ -23,7 +23,7 @@ namespace BookingApp.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<Booking>> Get()
         {
-            var bookings = _bookingService.GetAll;
+            var bookings = _bookingService.GetAll();
             return Ok(bookings);
         }
 
@@ -62,8 +62,10 @@ namespace BookingApp.Controllers
             return NotFound();
         }
 
-        _bookingService.Remove(id);
+        _bookingService.Remove(booking);
         return Ok();
     }
+
+    // TODO update with put
     }
 }

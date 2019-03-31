@@ -26,9 +26,9 @@ namespace BookingApp.Services
             return _bookingList.FirstOrDefault(item => item.ID == id);
         }
 
-        public IEnumerable<Booking> GetAll
+        public IEnumerable<Booking> GetAll()
         {
-            get { return _bookingList; }
+           return _bookingList.ToList();
         }
 
 
@@ -38,17 +38,17 @@ namespace BookingApp.Services
             return item;
         }
 
-        public void Update(Booking item)
-        {
-            var todoItem = this.Get(item.ID);
-            var index = _bookingList.IndexOf(todoItem);
+        public void Update(Booking booking, Booking newBooking)
+        {            
+            var bookingId = this.Get(booking.ID);
+            var index = _bookingList.IndexOf(bookingId);
             _bookingList.RemoveAt(index);
-            _bookingList.Insert(index, item);
+            _bookingList.Insert(index, newBooking);
         }
 
-        public void Remove(Guid id)
+        public void Remove(Booking booking)
         {
-            _bookingList.Remove(this.Get(id));
+            _bookingList.Remove(this.Get(booking.ID));
         }
 
         private void InitializeData()

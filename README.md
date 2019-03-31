@@ -34,6 +34,20 @@ dotnet add package Microsoft.EntityFrameworkCore.Design --version 2.2.0
 export ASPNETCORE_ENVIRONMENT=Development dotnet run
 ```
 
+
+# Entity Framework
+
+## Initial creation
+```{shell}
+dotnet ef migrations add InitialCreate
+```
+
+## Start with clean db
+```{shell}
+rm bookings.db
+dotnet ef database update
+```
+
 # Upgrade dotnet version
 https://docs.microsoft.com/en-us/aspnet/core/migration/21-to-22?view=aspnetcore-2.2&tabs=visual-studio-mac
 
