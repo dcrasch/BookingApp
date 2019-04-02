@@ -34,7 +34,11 @@ dotnet add package Swashbuckle.AspNetCore
 ```{shell}
 export ASPNETCORE_ENVIRONMENT=Development dotnet run
 ```
+https://127.0.0.1:5001/
 
+## View Swagger
+
+https://127.0.0.1:5001/swagger/index.html
 
 # Entity Framework
 
