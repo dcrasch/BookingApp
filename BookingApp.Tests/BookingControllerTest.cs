@@ -152,5 +152,54 @@ namespace BookingApp.Tests
             // Assert
             Assert.IsType<NotFoundResult>(notFoundResponse);
         }
+
+        [Fact]
+        public void Update_ValidObjectPassedReturnedResponseNoContent()
+        {
+            // Arrange
+            var existingGuid = new Guid("b94afb54-a1cb-4313-8af3-b7511551b33b");
+            var newName = "Hello world";
+            var booking = new Booking { ID=existingGuid, Name = newName };
+
+            // Act
+            var result = _controller.Put(existingGuid, booking);
+            // Assert
+            var actionResult = Assert.IsType<NoContentResult>(result);
+        }
+
+        [Fact]
+        public void Update_InvalidObjectPassedReturnedBadRequest()
+        {
+            // Arrange
+            var existingGuid = new Guid("b94afb54-a1cb-4313-8af3-b7511551b33b");
+            var nameMissingBooking = new Booking()
+            {
+                ID = existingGuid
+            };
+            _controller.ModelState.AddModelError("Name", "Required");
+            // Act
+            var badResponse = _controller.Put(existingGuid, nameMissingBooking);
+
+            // Assert
+            Assert.IsType<BadRequestObjectResult>(badResponse);
+        }
+
+        [Fact]
+        public void Update_NonexistingObjectPassedReturnNotfound()
+        {
+            // Arrange
+            var nonExistingGuid = new Guid("b94afb54-a1cb-4313-8af3-b7511551b33c");
+            var booking = new Booking()
+            {
+                ID = nonExistingGuid,
+                Name = "Does not exists"
+            };
+      
+            // Act
+            var notfoundResponse = _controller.Put(nonExistingGuid, booking);
+
+            // Assert
+            Assert.IsType<NotFoundResult>(notfoundResponse);
+        }
     }
 }

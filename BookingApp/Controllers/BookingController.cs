@@ -38,34 +38,54 @@ namespace BookingApp.Controllers
             }
 
             return Ok(booking);
-}
-
-    [HttpPost]
-    public ActionResult Post([FromBody] Booking value)
-    {
-        if (!ModelState.IsValid)
-        {
-            return BadRequest(ModelState);
         }
 
-        var booking = _bookingService.Add(value);
-        return CreatedAtAction("Get", new { id = booking.ID }, booking);
-    }
-
-    [HttpDelete("{id}")]
-    public ActionResult Remove(Guid id)
-    {
-        var booking = _bookingService.Get(id);
-
-        if (booking == null)
+        [HttpPost]
+        public ActionResult Post([FromBody] Booking value)
         {
-            return NotFound();
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var booking = _bookingService.Add(value);
+            return CreatedAtAction("Get", new { id = booking.ID }, booking);
         }
 
-        _bookingService.Remove(booking);
-        return Ok();
-    }
+        [HttpDelete("{id}")]
+        public ActionResult Remove(Guid id)
+        {
+            var booking = _bookingService.Get(id);
 
-    // TODO update with put
+            if (booking == null)
+            {
+                return NotFound();
+            }
+
+            _bookingService.Remove(booking);
+            return Ok();
+        }
+
+        [HttpPut("{id}")]
+        public ActionResult Put(Guid id, [FromBody] Booking booking)
+        {
+            var oldBooking = _bookingService.Get(id);
+
+            if (oldBooking == null)
+            {
+                return NotFound();
+            }
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            if (oldBooking.ID != booking.ID)
+            {
+                return BadRequest();
+            }
+
+            _bookingService.Update(oldBooking, booking);
+            return NoContent();
+        }
     }
 }
