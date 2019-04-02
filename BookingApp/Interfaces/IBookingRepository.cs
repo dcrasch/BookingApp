@@ -1,11 +1,10 @@
+using System;
 using System.Collections.Generic;
 using BookingApp.Models;
-using System;
-
 
 namespace BookingApp.Interfaces
 {
-    public interface IBookingService
+    public interface IBookingRepository
     {
         bool DoesItemExist(Guid id);
         IEnumerable<Booking> GetAll();

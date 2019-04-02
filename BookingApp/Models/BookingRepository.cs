@@ -7,10 +7,10 @@ using BookingApp.Interfaces;
 
 namespace BookingApp.Services
 {
-    public class EFBookingService : IBookingService
+    public class BookingRepository : IBookingRepository
     {
         readonly BookingContext _bookingContext;
-        public EFBookingService(BookingContext context)
+        public BookingRepository(BookingContext context)
         {
             _bookingContext = context;
         }

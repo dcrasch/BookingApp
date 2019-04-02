@@ -8,18 +8,19 @@ using BookingApp.Controllers;
 using BookingApp.Services;
 using BookingApp.Interfaces;
 using BookingApp.Models;
+using BookingApp.Tests.Models;
 
 namespace BookingApp.Tests
 {
     public class BookingControllerTest
     {
-        BookingController _controller;
-        IBookingService _service;
+        readonly BookingController _controller;
+        readonly IBookingRepository _repository;
 
         public BookingControllerTest()
         {
-            _service = new SampleBookingService();
-            _controller = new BookingController(_service);
+            _repository = new SampleBookingRepository();
+            _controller = new BookingController(_repository);
         }
 
         [Fact]

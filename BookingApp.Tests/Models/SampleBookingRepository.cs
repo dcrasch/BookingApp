@@ -5,13 +5,13 @@ using System;
 using BookingApp.Models;
 using BookingApp.Interfaces;
 
-namespace BookingApp.Services
+namespace BookingApp.Tests.Models
 {
-    public class SampleBookingService : IBookingService
+    public class SampleBookingRepository : IBookingRepository
     {
         private List<Booking> _bookingList;
 
-        public SampleBookingService()
+        public SampleBookingRepository()
         {
             InitializeData();
         }

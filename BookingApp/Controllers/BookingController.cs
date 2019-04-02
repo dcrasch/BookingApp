@@ -14,8 +14,8 @@ namespace BookingApp.Controllers
     public class BookingController : Controller
     {
 
-        private readonly IBookingService _bookingService;
-        public BookingController(IBookingService bookingService)
+        private readonly IBookingRepository _bookingService;
+        public BookingController(IBookingRepository bookingService)
         {
             _bookingService = bookingService;
         }

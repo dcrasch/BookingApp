@@ -28,7 +28,7 @@ namespace BookingApp
         {
             services.AddDbContext<BookingContext>(options => 
                 options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddScoped<IBookingService,EFBookingService>();
+            services.AddScoped<IBookingRepository,BookingRepository>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             // In production, the React files will be served from this directory
