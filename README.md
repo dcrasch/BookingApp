@@ -26,6 +26,7 @@ dotnet add package Microsoft.AspNetCore.App  ## same as web project
 cd ../<APPNAME>
 dotnet add package Microsoft.EntityFrameworkCore.Sqlite --version 2.2.0
 dotnet add package Microsoft.EntityFrameworkCore.Design --version 2.2.0
+dotnet add package Swashbuckle.AspNetCore
 ```
 
 # Running
@@ -60,6 +61,8 @@ https://docs.microsoft.com/en-us/aspnet/core/migration/21-to-22?view=aspnetcore-
 * [Unit Testing in ASP.NET Core Web API](https://code-maze.com/unit-testing-aspnetcore-web-api/)
 * [Test controller logic in ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/mvc/controllers/testing?view=aspnetcore-2.2)
 * [Building Single Page Applications on ASP.NET Core with JavaScriptServices](https://devblogs.microsoft.com/aspnet/building-single-page-applications-on-asp-net-core-with-javascriptservices/)
+* [Getting started with swashbuckle](https://docs.microsoft.com/en-us/aspnet/core/tutorials/getting-started-with-swashbuckle?view=aspnetcore-2.2&tabs=visual-studio)
+
 # License
 
 Copyright (c) 2019 David Rasch.

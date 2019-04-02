@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using BookingApp.Interfaces;
 using BookingApp.Services;
 using BookingApp.Models;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace BookingApp
 {
@@ -36,6 +37,11 @@ namespace BookingApp
             {
                 configuration.RootPath = "ClientApp/build";
             });
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info { Title = "Booking API", Version = "v1" });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -55,6 +61,12 @@ namespace BookingApp
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
 
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Booking API V1");
+            });
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
@@ -70,6 +82,9 @@ namespace BookingApp
                     spa.UseReactDevelopmentServer(npmScript: "start");
                 }
             });
+
+
+
         }
     }
 }
