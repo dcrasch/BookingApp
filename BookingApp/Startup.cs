@@ -28,14 +28,14 @@ namespace BookingApp
         {
             services.AddDbContext<BookingContext>(options => 
                 options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddScoped<IBookingService,EFBookingService>();
 
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/build";
             });
-            services.AddScoped<IBookingService,EFBookingService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
