@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
 using BookingApp.Models;
-using BookingApp.Services;
 using BookingApp.Interfaces;
 
 namespace BookingApp.Controllers
@@ -14,23 +13,23 @@ namespace BookingApp.Controllers
     public class BookingController : Controller
     {
 
-        private readonly IBookingRepository _bookingService;
-        public BookingController(IBookingRepository bookingService)
+        private readonly IBookingRepository _bookingRepository;
+        public BookingController(IBookingRepository bookingRepository)
         {
-            _bookingService = bookingService;
+            _bookingRepository = bookingRepository;
         }
 
         [HttpGet]
         public ActionResult<IEnumerable<Booking>> Get()
         {
-            var bookings = _bookingService.GetAll();
+            var bookings = _bookingRepository.GetAll();
             return Ok(bookings);
         }
 
         [HttpGet("{id}")]
         public ActionResult<Booking> Get(Guid id)
         {
-            var booking = _bookingService.Get(id);
+            var booking = _bookingRepository.Get(id);
 
             if (booking == null)
             {
@@ -48,28 +47,28 @@ namespace BookingApp.Controllers
                 return BadRequest(ModelState);
             }
 
-            var booking = _bookingService.Add(value);
+            var booking = _bookingRepository.Add(value);
             return CreatedAtAction("Get", new { id = booking.ID }, booking);
         }
 
         [HttpDelete("{id}")]
         public ActionResult Remove(Guid id)
         {
-            var booking = _bookingService.Get(id);
+            var booking = _bookingRepository.Get(id);
 
             if (booking == null)
             {
                 return NotFound();
             }
 
-            _bookingService.Remove(booking);
+            _bookingRepository.Remove(booking);
             return Ok();
         }
 
         [HttpPut("{id}")]
         public ActionResult Put(Guid id, [FromBody] Booking booking)
         {
-            var oldBooking = _bookingService.Get(id);
+            var oldBooking = _bookingRepository.Get(id);
 
             if (oldBooking == null)
             {
@@ -84,7 +83,7 @@ namespace BookingApp.Controllers
                 return BadRequest();
             }
 
-            _bookingService.Update(oldBooking, booking);
+            _bookingRepository.Update(oldBooking, booking);
             return NoContent();
         }
     }

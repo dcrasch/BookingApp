@@ -9,7 +9,6 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 
 using BookingApp.Interfaces;
-using BookingApp.Services;
 using BookingApp.Models;
 using Swashbuckle.AspNetCore.Swagger;
 
