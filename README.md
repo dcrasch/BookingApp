@@ -1,6 +1,6 @@
 # Booking App
 
-Simple C# app to make reservations.
+Simple C# app to make reservations. ***WORK IN PROGRESS***
 
 # Setup
 
