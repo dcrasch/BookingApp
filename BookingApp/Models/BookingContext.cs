@@ -1,5 +1,4 @@
-using Microsoft.EntityFrameworkCore;
-using BookingApp.Models;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace BookingApp.Models {     
 public class BookingContext : DbContext     
@@ -17,6 +16,7 @@ public class BookingContext : DbContext
             // Add your customizations after calling base.OnModelCreating(builder);
         }
     public DbSet<Booking> Bookings { get; set; }     
+    public DbSet<Timeslot> Timeslot { get; set; }
   
    } 
 }

@@ -5,10 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 using Xunit;
 
 using BookingApp.Controllers;
-using BookingApp.Services;
 using BookingApp.Interfaces;
 using BookingApp.Models;
-using BookingApp.Tests.Models;
 
 namespace BookingApp.Tests
 {

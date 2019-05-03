@@ -34,15 +34,18 @@ function renderBookingTable(props) {
       <thead>
         <tr>
           <th>ID</th>
-          <th>Name</th>
+                  <th>Name</th>
+                  <th>Timeslots</th>
         </tr>
       </thead>
       <tbody>
         {props.bookings.map(booking =>
           <tr key={booking.id}>
             <td>{booking.id}</td>
-            <td>{booking.name}</td>
+                <td>{booking.name}</td>
+                <td>{booking.bookedTimeslot && booking.bookedTimeslot.startTime}</td>
           </tr>
+
         )}
       </tbody>
     </table>

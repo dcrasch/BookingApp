@@ -8,7 +8,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 
-using BookingApp.Interfaces;
 using BookingApp.Models;
 using Swashbuckle.AspNetCore.Swagger;
 
@@ -28,7 +27,6 @@ namespace BookingApp
         {
             services.AddDbContext<BookingContext>(options =>
                 options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddScoped<IBookingRepository,BookingRepository>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             // In production, the React files will be served from this directory

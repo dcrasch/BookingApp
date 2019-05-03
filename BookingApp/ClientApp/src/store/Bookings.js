@@ -11,7 +11,7 @@ export const actionCreators = {
 
     dispatch({ type: requestBookingsType, startDateIndex });
 
-    const url = `api/booking/`;
+    const url = `api/bookings/`;
     const response = await fetch(url);
     const bookings = await response.json();
 
