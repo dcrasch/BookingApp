@@ -9,7 +9,6 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 
 using BookingApp.Interfaces;
-using BookingApp.Services;
 using BookingApp.Models;
 using Swashbuckle.AspNetCore.Swagger;
 
@@ -27,7 +26,7 @@ namespace BookingApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<BookingContext>(options => 
+            services.AddDbContext<BookingContext>(options =>
                 options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
             services.AddScoped<IBookingRepository,BookingRepository>();
 
@@ -59,7 +58,7 @@ namespace BookingApp
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseSpaStaticFiles();
+
 
             app.UseSwagger();
             app.UseSwaggerUI(c =>
@@ -67,6 +66,7 @@ namespace BookingApp
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Booking API V1");
             });
 
+            app.UseSpaStaticFiles();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

@@ -5,7 +5,7 @@ using System;
 using BookingApp.Models;
 using BookingApp.Interfaces;
 
-namespace BookingApp.Services
+namespace BookingApp.Models
 {
     public class BookingRepository : IBookingRepository
     {
