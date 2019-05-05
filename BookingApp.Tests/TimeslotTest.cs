@@ -10,7 +10,7 @@ using BookingApp.Models;
 
 namespace BookingApp.Tests
 {
-    public class TimeslotTest 
+    public class TimeslotTest
     {
         public TimeslotTest()
         {

@@ -56,6 +56,15 @@ dotnet ef database update
 # Upgrade dotnet version
 https://docs.microsoft.com/en-us/aspnet/core/migration/21-to-22?view=aspnetcore-2.2&tabs=visual-studio-mac
 
+# Tools
+
+## Dotnet format
+
+### Install
+dotnet tool install -g dotnet-format
+
+### Usage
+dotnet format
 # Links
 
 ## More documention

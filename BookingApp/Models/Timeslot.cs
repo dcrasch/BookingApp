@@ -22,7 +22,8 @@ namespace BookingApp.Models
 
         public bool IsAvailable
         {
-            get {
+            get
+            {
                 if (Capacity <= 0) return false;
                 if (Bookings == null) return true;
                 return (Capacity - Bookings.Count > 0);

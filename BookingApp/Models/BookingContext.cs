@@ -1,8 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace BookingApp.Models {     
-public class BookingContext : DbContext     
-  {        
+namespace BookingApp.Models
+{
+    public class BookingContext : DbContext
+    {
         public BookingContext(DbContextOptions<BookingContext> options)
             : base(options)
         {
@@ -15,8 +16,8 @@ public class BookingContext : DbContext
             // For example, you can rename the ASP.NET Identity table names and more.
             // Add your customizations after calling base.OnModelCreating(builder);
         }
-    public DbSet<Booking> Bookings { get; set; }     
-    public DbSet<Timeslot> Timeslot { get; set; }
-  
-   } 
+        public DbSet<Booking> Bookings { get; set; }
+        public DbSet<Timeslot> Timeslot { get; set; }
+
+    }
 }
