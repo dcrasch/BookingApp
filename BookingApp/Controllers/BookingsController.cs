@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+
 using BookingApp.Models;
+using BookingApp.Interfaces;
 
 namespace BookingApp.Controllers
 {
@@ -13,32 +15,30 @@ namespace BookingApp.Controllers
     [ApiController]
     public class BookingsController : ControllerBase
     {
-        private readonly BookingContext _context;
+        private readonly IBookingService _bookingService;
 
-        public BookingsController(BookingContext context)
+        public BookingsController(IBookingService service)
         {
-            _context = context;
+            _bookingService = service;
         }
 
         // GET: api/Bookings
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Booking>>> GetBookings()
         {
-            return await _context.Bookings.ToListAsync();
+            return Ok(await _bookingService.GetBookingsAsync());
         }
 
         // GET: api/Bookings/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Booking>> GetBooking(Guid id)
+        public async Task<ActionResult<Booking>> GetBooking(int id)
         {
-            var booking = await _context.Bookings.FindAsync(id);
-
+            var booking = await _bookingService.GetBookingAsync(id);
             if (booking == null)
             {
                 return NotFound();
             }
-
-            return booking;
+            else return Ok(booking);
         }
 
         // PUT: api/Bookings/5
@@ -50,24 +50,7 @@ namespace BookingApp.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(booking).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!BookingExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
+            await _bookingService.UpdateBookingAsync(booking);
             return NoContent();
         }
 
@@ -75,31 +58,20 @@ namespace BookingApp.Controllers
         [HttpPost]
         public async Task<ActionResult<Booking>> PostBooking(Booking booking)
         {
-            _context.Bookings.Add(booking);
-            await _context.SaveChangesAsync();
-
+            await _bookingService.AddBookingAsync(booking);
             return CreatedAtAction("GetBooking", new { id = booking.Id }, booking);
         }
 
         // DELETE: api/Bookings/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Booking>> DeleteBooking(Guid id)
+        public async Task<ActionResult<Booking>> DeleteBooking(int id)
         {
-            var booking = await _context.Bookings.FindAsync(id);
+            var booking = await _bookingService.DeleteBookingAsync(id);
             if (booking == null)
             {
                 return NotFound();
             }
-
-            _context.Bookings.Remove(booking);
-            await _context.SaveChangesAsync();
-
-            return booking;
-        }
-
-        private bool BookingExists(int id)
-        {
-            return _context.Bookings.Any(e => e.Id == id);
+            else return Ok(booking);
         }
     }
 }

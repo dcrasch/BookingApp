@@ -65,6 +65,11 @@ dotnet tool install -g dotnet-format
 
 ### Usage
 dotnet format
+
+## More tools
+
+https://github.com/natemcmaster/dotnet-tools
+
 # Links
 
 ## More documention

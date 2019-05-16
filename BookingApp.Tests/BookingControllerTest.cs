@@ -2,18 +2,26 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Xunit;
 
 using BookingApp.Controllers;
 using BookingApp.Models;
+using BookingApp.Interfaces;
+
+using BookingApp.Tests.Services;
 
 namespace BookingApp.Tests
 {
     public class BookingControllerTest
     {
-        /* TODO
-         *         readonly BookingsController _controller;
+        BookingsController _controller;
+        IBookingService _service;
+
+        public BookingControllerTest()
+        {
+            _service = new SampleBookingService();
+            _controller = new BookingsController(_service);
+        }
 
         [Fact]
         public async void Get_WhenCalled_ReturnsOkResult()
@@ -24,63 +32,67 @@ namespace BookingApp.Tests
             Assert.IsType<OkObjectResult>(okResult.Result);
         }
 
+        /*
         [Fact]
-        public void Get_WhenCalled_ReturnsAllItems()
+        public async void Get_WhenCalled_ReturnsAllItems()
         {
             // Act
-            var okResult = _controller.GetBookings();
+            var okResult = await _controller.GetBookings();
 
             // Assert
-            var items = Assert.IsType<List<Booking>>(okResult.Result);
+            var items = Assert.IsType<OkObjectResult>(okResult.Result);
             Assert.Equal(2, items.Count);
         }
 
         [Fact]
-        public void GetById_UnknownGuidPassed_ReturnsNotFoundResult()
+        public void GetById_UnknownIdPassed_ReturnsNotFoundResult()
         {
+            // Arange
+            var nonExistingId = -1;
             // Act
-            var notFoundResult = _controller.GetBooking(Guid.NewGuid());
+            var notFoundResult = _controller.GetBooking(nonExistingId);
 
             // Assert
             Assert.IsType<NotFoundResult>(notFoundResult.Result);
         }
 
         [Fact]
-        public void GetById_KnownGuidPassed_ReturnsOk()
+        public void GetById_KnownIdPassed_ReturnsOk()
         {
             // Arange
-
-            var existingGuid = new Guid("b94afb54-a1cb-4313-8af3-b7511551b33b");
+            var existingId = 1;
             // Act
-            var foundResult = _controller.GetBooking(existingGuid);
+            var foundResult = _controller.GetBooking(existingId);
 
             // Assert
             Assert.IsType<OkObjectResult>(foundResult.Result);
         }
 
         [Fact]
-        public void GetById_ExistingGuidPassed_ReturnsRightItem()
+        public void GetById_ExistingIdPassed_ReturnsRightItem()
         {
             // Arrange
-            var existingGuid = new Guid("b94afb54-a1cb-4313-8af3-b7511551b33b");
+            var existingId = 1;
 
             // Act
-            var foundResult = _controller.GetBooking(existingGuid);
+            var foundResult = _controller.GetBooking(existingId);
 
             // Assert
             var okResult = Assert.IsType<OkObjectResult>(foundResult.Result);
             var booking = Assert.IsType<Booking>(okResult.Value);
-            Assert.Equal(existingGuid, booking.ID);
+            Assert.Equal(existingId, booking.Id);
         }
 
         [Fact]
         public void Add_ValidObjectPassed_ReturnsCreatedAtActionResult()
         {
             // Arrange
-            var newId = Guid.NewGuid();
+            var newId = 3;
             var newName = "Hello world";
             // Act
-            var result = _controller.PostBooking(new Booking  { ID = newId, Name = newName} );
+            var result = _controller.PostBooking(
+                new Booking  { Id = newId, Name = newName}
+            );
 
             // Assert
             Assert.IsType<CreatedAtActionResult>(result);
@@ -90,10 +102,10 @@ namespace BookingApp.Tests
         public async void Add_InvalidObjectPassed_ReturnsBadRequest()
         {
             // Arrange
-            var newId = Guid.NewGuid();
+            var newId = 3;
             var nameMissingBooking = new Booking()
             {
-                ID = newId
+                Id = newId
             };
             _controller.ModelState.AddModelError("Name", "Required");
             // Act
@@ -120,26 +132,26 @@ namespace BookingApp.Tests
         }
 
         [Fact]
-        public void Remove_ValidGuidPassed_ReturnsOk()
+        public void Remove_ValidIdPassed_ReturnsOk()
         {
             // Arrange
-            var existingGuid = new Guid("b94afb54-a1cb-4313-8af3-b7511551b33b");
+            var existingId = 1;
 
             // Act
-            var okResponse = _controller.DeleteBooking(existingGuid);
+            var okResponse = _controller.DeleteBooking(existingId);
 
             // Assert
             Assert.IsType<OkResult>(okResponse);
         }
 
         [Fact]
-        public void Remove_InvalidGuidPassed_ReturnsObjectNotFound()
+        public void Remove_InvalidIdPassed_ReturnsObjectNotFound()
         {
             // Arrange
-            var nonExistingGuid = new Guid("b94afb54-0000-0000-0000-b7511551b33b");
+            var nonExistingId = -1;
 
             // Act
-            var notFoundResponse = _controller.DeleteBooking(nonExistingGuid);
+            var notFoundResponse = _controller.DeleteBooking(nonExistingId);
 
             // Assert
             Assert.IsType<NotFoundResult>(notFoundResponse);
@@ -149,12 +161,12 @@ namespace BookingApp.Tests
         public void Update_ValidObjectPassedReturnedResponseNoContent()
         {
             // Arrange
-            var existingGuid = new Guid("b94afb54-a1cb-4313-8af3-b7511551b33b");
+            var existingId = 1;
             var newName = "Hello world";
-            var booking = new Booking { ID=existingGuid, Name = newName };
+            var booking = new Booking { Id=existingId, Name = newName };
 
             // Act
-            var result = _controller.PutBooking(existingGuid, booking);
+            var result = _controller.PutBooking(existingId, booking);
             // Assert
             var actionResult = Assert.IsType<NoContentResult>(result);
         }
@@ -163,14 +175,14 @@ namespace BookingApp.Tests
         public void Update_InvalidObjectPassedReturnedBadRequest()
         {
             // Arrange
-            var existingGuid = new Guid("b94afb54-a1cb-4313-8af3-b7511551b33b");
+            var existingId = 1;
             var nameMissingBooking = new Booking()
             {
-                ID = existingGuid
+                Id = existingId
             };
             _controller.ModelState.AddModelError("Name", "Required");
             // Act
-            var badResponse = _controller.PutBooking(existingGuid, nameMissingBooking);
+            var badResponse = _controller.PutBooking(existingId, nameMissingBooking);
 
             // Assert
             Assert.IsType<BadRequestObjectResult>(badResponse);
@@ -180,15 +192,15 @@ namespace BookingApp.Tests
         public void Update_NonexistingObjectPassedReturnNotfound()
         {
             // Arrange
-            var nonExistingGuid = new Guid("b94afb54-a1cb-4313-8af3-b7511551b33c");
+            var nonExistingId = -1;
             var booking = new Booking()
             {
-                ID = nonExistingGuid,
+                Id = nonExistingId,
                 Name = "Does not exists"
             };
 
             // Act
-            var notfoundResponse = _controller.PutBooking(nonExistingGuid, booking);
+            var notfoundResponse = _controller.PutBooking(nonExistingId, booking);
 
             // Assert
             Assert.IsType<NotFoundResult>(notfoundResponse);
