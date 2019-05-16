@@ -27,58 +27,56 @@ namespace BookingApp.Tests
         public async void Get_WhenCalled_ReturnsOkResult()
         {
             // Act
-            var okResult = await _controller.GetBookings();
+            ActionResult<IEnumerable<Booking>> okResult = await _controller.GetBookings();
             // Assert
             Assert.IsType<OkObjectResult>(okResult.Result);
         }
 
-        /*
         [Fact]
         public async void Get_WhenCalled_ReturnsAllItems()
         {
             // Act
-            var okResult = await _controller.GetBookings();
-
+            ActionResult<IEnumerable<Booking>> actionResult = await _controller.GetBookings();
             // Assert
-            var items = Assert.IsType<OkObjectResult>(okResult.Result);
-            Assert.Equal(2, items.Count);
+            OkObjectResult okResult = Assert.IsType<OkObjectResult>(actionResult.Result);
+            IEnumerable<Booking> bookings = Assert.IsAssignableFrom<IEnumerable<Booking>>(okResult.Value);
+            Assert.Equal(2, bookings.Count());
         }
 
         [Fact]
-        public void GetById_UnknownIdPassed_ReturnsNotFoundResult()
+        public async void GetById_UnknownIdPassed_ReturnsNotFoundResult()
         {
             // Arange
-            var nonExistingId = -1;
+            int nonExistingId = -1;
             // Act
-            var notFoundResult = _controller.GetBooking(nonExistingId);
-
+            ActionResult<Booking> actionResult = await _controller.GetBooking(nonExistingId); 
             // Assert
-            Assert.IsType<NotFoundResult>(notFoundResult.Result);
+            Assert.IsType<NotFoundResult>(actionResult.Result);
         }
-
+      
         [Fact]
-        public void GetById_KnownIdPassed_ReturnsOk()
+        public async void GetById_KnownIdPassed_ReturnsOk()
         {
             // Arange
             var existingId = 1;
             // Act
-            var foundResult = _controller.GetBooking(existingId);
+            ActionResult<Booking> actionResult = await _controller.GetBooking(existingId);
 
             // Assert
-            Assert.IsType<OkObjectResult>(foundResult.Result);
+            Assert.IsType<OkObjectResult>(actionResult.Result);
         }
 
         [Fact]
-        public void GetById_ExistingIdPassed_ReturnsRightItem()
+        public async void GetById_ExistingIdPassed_ReturnsRightItem()
         {
             // Arrange
             var existingId = 1;
 
             // Act
-            var foundResult = _controller.GetBooking(existingId);
+            ActionResult<Booking> actionResult = await _controller.GetBooking(existingId);
 
             // Assert
-            var okResult = Assert.IsType<OkObjectResult>(foundResult.Result);
+            var okResult = Assert.IsType<OkObjectResult>(actionResult.Result);
             var booking = Assert.IsType<Booking>(okResult.Value);
             Assert.Equal(existingId, booking.Id);
         }
@@ -205,6 +203,6 @@ namespace BookingApp.Tests
             // Assert
             Assert.IsType<NotFoundResult>(notfoundResponse);
         }
-        */
+        
     }
 }

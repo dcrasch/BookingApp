@@ -19,7 +19,7 @@ namespace BookingApp.Tests.Services
 
         public async Task<IEnumerable<Booking>> GetBookingsAsync()
         {
-            return _bookingList.ToList();
+            return _bookingList;
         }
 
         public async Task<Booking> GetBookingAsync(int id)

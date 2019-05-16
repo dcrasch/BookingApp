@@ -26,7 +26,8 @@ namespace BookingApp.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Booking>>> GetBookings()
         {
-            return Ok(await _bookingService.GetBookingsAsync());
+            var bookings = await _bookingService.GetBookingsAsync();
+            return Ok(bookings);
         }
 
         // GET: api/Bookings/5
