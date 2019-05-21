@@ -82,18 +82,18 @@ namespace BookingApp.Tests
         }
 
         [Fact]
-        public void Add_ValidObjectPassed_ReturnsCreatedAtActionResult()
+        public async void Add_ValidObjectPassed_ReturnsCreatedAtActionResult()
         {
             // Arrange
             var newId = 3;
             var newName = "Hello world";
             // Act
-            var result = _controller.PostBooking(
+            var actionResult = await _controller.PostBooking(
                 new Booking  { Id = newId, Name = newName}
             );
 
             // Assert
-            Assert.IsType<CreatedAtActionResult>(result);
+            Assert.IsType<CreatedAtActionResult>(actionResult.Result);
         }
 
         [Fact]
@@ -107,25 +107,25 @@ namespace BookingApp.Tests
             };
             _controller.ModelState.AddModelError("Name", "Required");
             // Act
-            var badResponse = _controller.PostBooking(nameMissingBooking);
+            var badResponse = await _controller.PostBooking(nameMissingBooking);
 
             // Assert
             Assert.IsType<BadRequestObjectResult>(badResponse.Result);
         }
 
         [Fact]
-        public void Add_ValidObjectPassedReturnedResponseHasCreatedItem()
+        public async void Add_ValidObjectPassedReturnedResponseHasCreatedItem()
         {
             // Arrange
             var newName = "Hello world";
             var booking = new Booking { Name = newName };
 
             // Act
-            var result = _controller.PostBooking(booking);
+            var actionResult = await _controller.PostBooking(booking);
 
             // Assert
-            var actionResult = Assert.IsType<CreatedAtActionResult>(result);
-            var newBooking = Assert.IsType<Booking>(actionResult.Value);
+            var createdAtActionResult = Assert.IsType<CreatedAtActionResult>(actionResult.Result);
+            var newBooking = Assert.IsType<Booking>(createdAtActionResult.Value);
             Assert.Equal(newBooking.Name, booking.Name);
         }
 
