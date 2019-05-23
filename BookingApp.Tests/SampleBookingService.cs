@@ -30,7 +30,14 @@ namespace BookingApp.Tests.Services
         public async Task<Booking> UpdateBooking(Booking booking)
         {
             var index = _bookingList.IndexOf(booking);
-            _bookingList.RemoveAt(index);
+            try
+            {
+                _bookingList.RemoveAt(index);
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                return null;
+            }
             _bookingList.Insert(index, booking);
             return booking;
         }
@@ -45,7 +52,13 @@ namespace BookingApp.Tests.Services
         {
             Booking booking = await GetBooking(id);
             var index = _bookingList.IndexOf(booking);
-            _bookingList.RemoveAt(index);
+            try {
+                _bookingList.RemoveAt(index);
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                return null;
+            }
             return booking;
         }
 

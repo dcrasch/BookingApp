@@ -50,6 +50,10 @@ namespace BookingApp.Controllers
             {
                 return BadRequest();
             }
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
             await _bookingService.UpdateBooking(booking);
             return NoContent();
@@ -77,7 +81,7 @@ namespace BookingApp.Controllers
             {
                 return NotFound();
             }
-            else return Ok(booking);
+            return Ok(booking);
         }
     }
 }
