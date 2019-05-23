@@ -17,17 +17,17 @@ namespace BookingApp.Tests.Services
             InitializeData();
         }
 
-        public async Task<IEnumerable<Booking>> GetBookingsAsync()
+        public async Task<IEnumerable<Booking>> GetBookings()
         {
             return _bookingList;
         }
 
-        public async Task<Booking> GetBookingAsync(int id)
+        public async Task<Booking> GetBooking(int id)
         {
             return _bookingList.FirstOrDefault(item => item.Id == id);
         }
 
-        public async Task<Booking> UpdateBookingAsync(Booking booking)
+        public async Task<Booking> UpdateBooking(Booking booking)
         {
             var index = _bookingList.IndexOf(booking);
             _bookingList.RemoveAt(index);
@@ -35,15 +35,15 @@ namespace BookingApp.Tests.Services
             return booking;
         }
 
-        public async Task AddBookingAsync(Booking booking)
+        public async Task AddBooking(Booking booking)
         {
             _bookingList.Add(booking);
             return;
         }
 
-        public async Task<Booking> DeleteBookingAsync(int id)
+        public async Task<Booking> DeleteBooking(int id)
         {
-            Booking booking = await GetBookingAsync(id);
+            Booking booking = await GetBooking(id);
             var index = _bookingList.IndexOf(booking);
             _bookingList.RemoveAt(index);
             return booking;

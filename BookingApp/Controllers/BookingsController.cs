@@ -26,7 +26,7 @@ namespace BookingApp.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Booking>>> GetBookings()
         {
-            var bookings = await _bookingService.GetBookingsAsync();
+            var bookings = await _bookingService.GetBookings();
             return Ok(bookings);
         }
 
@@ -34,7 +34,7 @@ namespace BookingApp.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Booking>> GetBooking(int id)
         {
-            var booking = await _bookingService.GetBookingAsync(id);
+            var booking = await _bookingService.GetBooking(id);
             if (booking == null)
             {
                 return NotFound();
@@ -51,7 +51,7 @@ namespace BookingApp.Controllers
                 return BadRequest();
             }
 
-            await _bookingService.UpdateBookingAsync(booking);
+            await _bookingService.UpdateBooking(booking);
             return NoContent();
         }
 
@@ -59,7 +59,7 @@ namespace BookingApp.Controllers
         [HttpPost]
         public async Task<ActionResult<Booking>> PostBooking(Booking booking)
         {
-            await _bookingService.AddBookingAsync(booking);
+            await _bookingService.AddBooking(booking);
             return CreatedAtAction("GetBooking", new { id = booking.Id }, booking);
         }
 
@@ -67,7 +67,7 @@ namespace BookingApp.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<Booking>> DeleteBooking(int id)
         {
-            var booking = await _bookingService.DeleteBookingAsync(id);
+            var booking = await _bookingService.DeleteBooking(id);
             if (booking == null)
             {
                 return NotFound();

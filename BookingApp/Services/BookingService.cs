@@ -18,17 +18,17 @@ namespace BookingApp.Services
             _context = context;
         }
 
-        public async Task<IEnumerable<Booking>> GetBookingsAsync()
+        public async Task<IEnumerable<Booking>> GetBookings()
         {
             return await _context.Bookings.ToListAsync();
         }
 
-        public async Task<Booking> GetBookingAsync(int id)
+        public async Task<Booking> GetBooking(int id)
         {
             return await _context.Bookings.FindAsync(id);
         }
 
-        public async Task<Booking> UpdateBookingAsync(Booking booking)
+        public async Task<Booking> UpdateBooking(Booking booking)
         {
             _context.Entry(booking).State = EntityState.Modified;
             try
@@ -42,13 +42,13 @@ namespace BookingApp.Services
             return booking;
         }
 
-        public async Task AddBookingAsync(Booking booking)
+        public async Task AddBooking(Booking booking)
         {
             _context.Bookings.Add(booking);
             await _context.SaveChangesAsync();
         }
 
-        public async Task<Booking> DeleteBookingAsync(int id) {
+        public async Task<Booking> DeleteBooking(int id) {
             var bookingDelete = await _context.Bookings.FindAsync(id);
             if (bookingDelete == null)
             {

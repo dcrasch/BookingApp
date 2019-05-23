@@ -10,14 +10,14 @@ namespace BookingApp.Interfaces
 {
     public interface IBookingService
     {
-        Task<IEnumerable<Booking>> GetBookingsAsync();
+        Task<IEnumerable<Booking>> GetBookings();
 
-        Task<Booking> GetBookingAsync(int id);
+        Task<Booking> GetBooking(int id);
 
-        Task<Booking> UpdateBookingAsync(Booking booking);
+        Task<Booking> UpdateBooking(Booking booking);
 
-        Task AddBookingAsync(Booking booking);
+        Task AddBooking(Booking booking);
 
-        Task<Booking> DeleteBookingAsync(int id);
+        Task<Booking> DeleteBooking(int id);
     }
 }
