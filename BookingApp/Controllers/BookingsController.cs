@@ -59,6 +59,11 @@ namespace BookingApp.Controllers
         [HttpPost]
         public async Task<ActionResult<Booking>> PostBooking(Booking booking)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             await _bookingService.AddBooking(booking);
             return CreatedAtAction("GetBooking", new { id = booking.Id }, booking);
         }

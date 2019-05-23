@@ -106,6 +106,7 @@ namespace BookingApp.Tests
                 Id = newId
             };
             _controller.ModelState.AddModelError("Name", "Required");
+
             // Act
             var badResponse = await _controller.PostBooking(nameMissingBooking);
 
